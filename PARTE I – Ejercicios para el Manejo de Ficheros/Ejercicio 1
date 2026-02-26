@@ -1,0 +1,49 @@
+**
+ *
+ * @author Jkur
+ * @version 1.0
+ * @see BufferedReader
+ * @see FileReader
+ * @see IOException
+ */
+public class Ejer1 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        try {
+
+            System.out.println("Introduce el fichero que quieres leer (O ruta): ");
+            String nomFichero = sc.next();
+
+            FileReader fr = new FileReader(nomFichero);
+            BufferedReader br = new BufferedReader(fr);
+
+            String linea;
+            int contLineas = 0;
+
+            //Ahora vamos a leer el fichero hasta que no quede mas lineas
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+                contLineas++;
+
+                if (contLineas == 24) { //Si ya hemos mostrado 24 lineas hacemos que pare
+                    System.out.println("Presiona (INTRO) para continuar");
+                    sc.nextLine();//Con esto hago para detener la ejecucion hasta que el usuario pulse el intro
+
+                    contLineas = 0; //Reiniciamos el contador para las proximas 24 lineas
+
+                }
+            }
+
+            fr.close();
+            br.close();
+
+            System.out.println("FIN DEL FICHERO");
+        } catch (IOException e) {
+            System.out.println("Error al acceder al fichero: " + e.getMessage());
+            System.out.println("Asegúrate de que el archivo existe y has escrito bien el nombre.");
+        }
+
+    }
+}
