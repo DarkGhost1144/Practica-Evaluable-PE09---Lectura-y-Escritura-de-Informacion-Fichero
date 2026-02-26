@@ -1,0 +1,75 @@
+import java.io.Serializable;
+
+/**
+ *
+ * @author alumno
+ */
+public class Ejer3_Peliculas implements Serializable{
+        
+    private String fechaLanzamiento; 
+    private String titulo;
+    private String resumen;
+    private double popularidad;
+    private int votos;
+    private double puntuacionMedia;
+    private String idiomaOriginal;
+    private String genero;
+    private String urlCartel;
+
+    public Ejer3_Peliculas(String fechaLanzamiento, String titulo, String resumen, double popularidad, int votos, double puntuacionMedia, String idiomaOriginal, String genero, String urlCartel) {
+        this.fechaLanzamiento = fechaLanzamiento;
+        this.titulo = titulo;
+        this.resumen = resumen;
+        this.popularidad = popularidad;
+        this.votos = votos;
+        this.puntuacionMedia = puntuacionMedia;
+        this.idiomaOriginal = idiomaOriginal;
+        this.genero = genero;
+        this.urlCartel = urlCartel;
+    }
+
+    public String getFechaLanzamiento() {
+        return fechaLanzamiento;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getResumen() {
+        return resumen;
+    }
+
+    public double getPopularidad() {
+        return popularidad;
+    }
+
+    public int getVotos() {
+        return votos;
+    }
+
+    public double getPuntuacionMedia() {
+        return puntuacionMedia;
+    }
+
+    public String getIdiomaOriginal() {
+        return idiomaOriginal;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public String getUrlCartel() {
+        return urlCartel;
+    }
+
+    @Override
+    public String toString() {
+        return "Peliculas: " + "fechaLanzamiento=" + fechaLanzamiento + ", titulo=" + titulo + ", puntuacionMedia=" + puntuacionMedia + ", genero=" + genero;
+    }
+    
+    
+    
+    
+}
