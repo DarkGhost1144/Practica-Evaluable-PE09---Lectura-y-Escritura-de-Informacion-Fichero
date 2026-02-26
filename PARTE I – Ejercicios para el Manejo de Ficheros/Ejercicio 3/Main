@@ -1,0 +1,80 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectStreamClass;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author alumno
+ */
+public class Ejer3_Main {
+
+    public static void main(String[] args) {
+        String archOrigen = "mymoviedb.tsv";
+
+        List<Ejer3_Peliculas> listaPeliculas = cargarPeliculas(archOrigen);
+
+        if (listaPeliculas.isEmpty()) {
+            System.out.println("No se ha pidip cargar las peliculas");
+            return;
+        }
+
+        System.out.println("Se han cargado: " + listaPeliculas.size() + "peliculas");
+    }
+
+    //VAmos a probar los 4 metodos
+    //Generar Binario con todas
+    public static void generarbinarioTodas(List<Ejer3_Peliculas> listaPeliculases, String nombreFichero) throws FileNotFoundException, IOException {
+        try {
+            FileOutputStream fos = new FileOutputStream(nombreFichero);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(listaPeliculases);
+
+            oos.close();
+            fos.close();
+        } catch (IOException ioe) {
+            System.out.println("Error en el archivo binario" + ioe.getMessage());
+        }
+
+    }
+
+    private static List<Ejer3_Peliculas> cargarPeliculas(String nombreFichero) {
+        List<Ejer3_Peliculas> lista = new ArrayList<>();
+
+        try {
+            FileReader fr = new FileReader(nombreFichero);
+            BufferedReader br = new BufferedReader(fr);
+
+            String linea;
+
+            br.readLine();
+
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split("\t ", -1); //Meto el -1 para que ignore las columnas vacias
+
+                if (datos.length >= 9) {
+                    String fecha = datos[0];
+                    String titulo = datos[1];
+                    String resumen = datos[2];
+                    double popularidad = Double.parseDouble(datos[3]);
+                    int votos = Integer.parseInt(datos[4]);
+                    double puntuacion = Double.parseDouble(datos[5]);
+                    String idioma = datos[6];
+                    String generos = datos[7];
+                    String url = datos[8];
+
+                    Ejer3_Peliculas p = new Ejer3_Peliculas(fecha, titulo, resumen, popularidad, votos, puntuacion, idioma, generos, url);
+                    lista.add(p);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error al cargar el archivo TSV: " + e.getMessage());
+        }
+
+    }
