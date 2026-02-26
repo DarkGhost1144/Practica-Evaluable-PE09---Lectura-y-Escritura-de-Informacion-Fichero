@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Jkur
+ * @version 1.0
+ * 
+ * @see BufferedReader
+ * @see BufferedWriter
+ * @see FileReader
+ * @see FileWriter
+ * @see IOException
+ */
+public class Ejer2 {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String archEntrada = "PrincipalPrueba.java";
+        String archSalida = "SinComentariosPrincipal.java";
+
+        try {
+            //Lo hacemos para leer el fichero
+            FileReader fr = new FileReader(archEntrada);
+            BufferedReader br = new BufferedReader(fr);
+
+            //Lo hacemos para escribir el fichero
+            FileWriter fw = new FileWriter(archSalida);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                //Ahora vamos a leer la linea desde las // hacia adelante
+                String lLimpia = linea.replaceAll("//.*", "");
+
+                //Si la linea no se ha quedado en blanco tras limpiar la guadamos
+                if (!lLimpia.trim().isEmpty()) {
+                    bw.write(lLimpia);
+                    bw.newLine(); //Ponemos el salto de lina a mano 
+                }
+            }
+
+            System.out.println("Archivo Generado");
+            
+            br.close();
+            fr.close();
+            bw.close();
+            fw.close();
+        } catch (Exception e) {
+            System.out.println("Error en el fichero: " + e.getMessage());
+        }
+    }
+}
